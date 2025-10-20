@@ -7,11 +7,14 @@
 
 <script setup>
 useHead({
-  title: 'Ahmad Fauzan Portfolio',
+  title: 'Ahmad Fauzan - Fullstack Web Developer',
   meta: [
     { charset: 'utf-8' },
     { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    { name: 'description', content: 'Award-winning creative developer portfolio' }
+    { name: 'description', content: 'Ahmad Fauzan - Fullstack Web Developer specializing in Nuxt.js and Laravel' }
+  ],
+  link: [
+    { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
   ]
 })
 </script>
