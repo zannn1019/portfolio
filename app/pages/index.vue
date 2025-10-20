@@ -13,7 +13,7 @@
 const { gsap } = useGsap()
 
 useHead({
-  title: 'Home - Creative Developer Portfolio',
+  title: 'Ahmad Fauzan - Portfolio',
   meta: [
     { name: 'description', content: 'Award-winning creative developer specializing in modern web experiences' }
   ]
