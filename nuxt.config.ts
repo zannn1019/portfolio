@@ -7,13 +7,14 @@ export default defineNuxtConfig({
   // Enable SSG (Static Site Generation)
   ssr: true,
 
-  // GitHub Pages configuration
+  // Deployment configuration
   app: {
-    baseURL: '/portfolio/',
+    // Use root path for Vercel/Netlify, '/portfolio/' for GitHub Pages
+    baseURL: '/',
     buildAssetsDir: 'assets',
   },
 
-  // Target static for GitHub Pages
+  // Target static for deployment
   nitro: {
     preset: 'static',
     prerender: {
