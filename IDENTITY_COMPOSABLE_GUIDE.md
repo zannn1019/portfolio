@@ -64,6 +64,25 @@ This composable imports and exports data from `identity.json`:
 
 ## How to Update Content
 
+### Dynamic Data from project.json
+Some data fields can be left empty (`""`) to be dynamically calculated from other sources:
+
+**Major Projects Count**: In `identity.json`, the experience section has a "Major Projects" entry with an empty number:
+```json
+{
+  "experience": [
+    {
+      "number": "",
+      "label": "Major Projects"
+    }
+  ]
+}
+```
+
+The `AboutSection.vue` component automatically fills this with the count from `project.json`:
+- When you add/remove projects in `project.json`, the count updates automatically
+- The component uses a computed property to merge static data with dynamic project count
+
 ### Update Personal Information
 
 Edit `app/data/identity.json`:

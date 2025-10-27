@@ -54,7 +54,7 @@
 
             <div class="detail-block" ref="detail3Ref">
               <div class="experience-grid">
-                <div v-for="exp in about.experience" :key="exp.label" class="exp-item">
+                <div v-for="exp in experienceData" :key="exp.label" class="exp-item">
                   <span class="exp-number">{{ exp.number }}</span>
                   <span class="exp-label">{{ exp.label }}</span>
                 </div>
@@ -80,6 +80,18 @@ const detail1Ref = ref(null)
 const detail2Ref = ref(null)
 const detail3Ref = ref(null)
 const badgeRef = ref(null)
+
+const experienceData = computed(() => {
+  return about.experience.map(exp => {
+    if (exp.number === '' && exp.label === 'Major Projects') {
+      return {
+        ...exp,
+        number: `${projects.value.length}+`
+      }
+    }
+    return exp
+  })
+})
 
 onMounted(() => {
   // Section label animation
