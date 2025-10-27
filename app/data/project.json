@@ -40,5 +40,12 @@
     "tags": ["Frontend", "Portfolio"],
     "year": "2025",
     "image": "https://placehold.co/600x400/000000/FFFFFF/png?text=Project+Image"
+  },
+  {
+    "title": "Chrome Extension Development",
+    "description": "Developed a Chrome extension for enhanced productivity, featuring task management and time tracking functionalities.",
+    "tags": ["Frontend", "Chrome Extension"],
+    "year": "2023",
+    "image": "https://placehold.co/600x400/000000/FFFFFF/png?text=Project+Image"
   }
 ]
