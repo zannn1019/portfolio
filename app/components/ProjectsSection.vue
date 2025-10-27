@@ -71,35 +71,12 @@
 
 <script setup>
 const { gsap, animateOnScroll } = useGsap()
+const { projects }   = useProject()
 
 const projectsRef = ref(null)
 const labelRef = ref(null)
 const titleRef = ref(null)
 const ctaRef = ref(null)
-
-const projects = [
-  {
-    title: 'Electronic Signature System (TTE)',
-    description: 'Developed new frontend features, bug fixing, and managed deployment on OKD (OpenShift). Built CI/CD pipelines for automated testing and deployment.',
-    tags: ['Frontend', 'DevOps'],
-    year: '2025',
-    image: 'https://images.unsplash.com/photo-1618044733300-9472054094ee?w=800&h=600&fit=crop'
-  },
-  {
-    title: 'Web Application Maintenance',
-    description: 'Performed routine maintenance including security updates, bug fixes, and performance improvements. Implemented new features and provided technical support.',
-    tags: ['Fullstack', 'Maintenance'],
-    year: '2024',
-    image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=600&fit=crop'
-  },
-  {
-    title: 'Industry Grading System Website',
-    description: 'Full-stack development including Use Case, Sequence, Activity, and Database diagrams. Collaborated with UI/UX team to create interactive interfaces.',
-    tags: ['Fullstack', 'Database'],
-    year: '2023',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop'
-  }
-]
 
 const handleProjectHover = (index) => {
   const card = document.querySelector(`[data-index="${index}"] .project-card`)

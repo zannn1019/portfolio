@@ -12,38 +12,37 @@
       <div class="hero-content">
         <div class="hero-label" ref="labelRef">
           <span class="label-line"></span>
-          <span class="label-text">FULLSTACK WEB DEVELOPER</span>
+          <span class="label-text">{{ hero.label }}</span>
         </div>
 
         <h1 class="hero-title">
           <div class="title-line" ref="title1Ref">
-            <span class="title-word">AHMAD</span>
+            <span class="title-word">{{ personal.firstName }}</span>
           </div>
           <div class="title-line" ref="title2Ref">
-            <span class="title-word">FAUZAN</span>
+            <span class="title-word">{{ personal.lastName }}</span>
           </div>
         </h1>
 
         <div class="hero-description" ref="descRef">
           <p class="description-text">
-            Deep expertise in Nuxt.js and Laravel with strong understanding of modern web application architecture. 
-            Experienced in server-side rendering and building efficient APIs.
+            {{ hero.description }}
           </p>
         </div>
 
         <div class="hero-cta" ref="ctaRef">
           <button class="cta-button" ref="ctaButtonRef">
-            <span class="cta-text">VIEW MY WORK</span>
+            <span class="cta-text">{{ hero.ctaButtonText }}</span>
             <span class="cta-icon">→</span>
           </button>
           <div class="hero-stats">
             <div class="stat">
-              <span class="stat-number">3+</span>
+              <span class="stat-number">{{ projects.length }}+</span>
               <span class="stat-label">Projects</span>
             </div>
             <div class="stat">
-              <span class="stat-number">2+</span>
-              <span class="stat-label">Years</span>
+              <span class="stat-number">{{ hero.stats.years }}</span>
+              <span class="stat-label">{{ hero.stats.yearsLabel }}</span>
             </div>
           </div>
         </div>
@@ -72,6 +71,8 @@
 
 <script setup>
 const { gsap, magneticHover, parallaxScroll } = useGsap()
+const { projects } = useProject()
+const { hero, personal } = useIdentity()
 
 const heroRef = ref(null)
 const labelRef = ref(null)

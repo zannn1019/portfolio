@@ -1,17 +1,18 @@
 <template>
   <footer class="footer">
     <div class="container">
-      <p>&copy; {{ currentYear }} Ahmad Fauzan. Fullstack Web Developer.</p>
+      <p>&copy; {{ currentYear }} {{ footer.copyrightText }}</p>
       <div class="social-links">
-        <a href="#" target="_blank" rel="noopener">GitHub</a>
-        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="#" target="_blank" rel="noopener">Twitter</a>
+        <a v-for="social in footer.socialLinks" :key="social.name" :href="social.url" target="_blank" rel="noopener">
+          {{ social.name }}
+        </a>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup>
+const { footer } = useIdentity()
 const currentYear = new Date().getFullYear()
 </script>
 

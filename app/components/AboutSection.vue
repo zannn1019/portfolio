@@ -3,16 +3,16 @@
     <div class="about-container">
       <!-- Section label -->
       <div class="section-label" ref="labelRef">
-        <span class="label-number">01</span>
-        <span class="label-text">ABOUT ME</span>
+        <span class="label-number">{{ about.sectionNumber }}</span>
+        <span class="label-text">{{ about.sectionLabel }}</span>
       </div>
 
       <div class="about-content">
         <!-- Large statement -->
         <div class="about-statement">
           <h2 class="statement-text" ref="statementRef">
-            I'm a <span class="highlight">Fullstack Web Developer</span> with deep expertise in 
-            <span class="highlight">Nuxt.js</span> and <span class="highlight">Laravel</span>, 
+            I'm a <span class="highlight">{{ about.highlights[0] }}</span> with deep expertise in 
+            <span class="highlight">{{ about.highlights[1] }}</span> and <span class="highlight">{{ about.highlights[2] }}</span>, 
             building modern web applications with solid architecture and optimal performance.
           </h2>
         </div>
@@ -24,9 +24,7 @@
             <div class="image-reveal">
               <div class="image-placeholder">
                 <div class="image-text">
-                  <span class="image-label">PASSIONATE</span>
-                  <span class="image-label">CREATIVE</span>
-                  <span class="image-label">INNOVATIVE</span>
+                  <span v-for="label in about.imagePlaceholderLabels" :key="label" class="image-label">{{ label }}</span>
                 </div>
               </div>
             </div>
@@ -36,34 +34,19 @@
           <!-- Right: Content -->
           <div class="about-details">
             <div class="detail-block" ref="detail1Ref">
-              <h3 class="detail-title">My Expertise</h3>
+              <h3 class="detail-title">{{ about.expertise.title }}</h3>
               <p class="detail-text">
-                Expert in using Nuxt.js for SSR applications and Laravel for backend development. 
-                Experienced in building RESTful APIs, managing MySQL and PostgreSQL databases, and 
-                deploying Linux-based applications. Skilled in using Jenkins for CI/CD pipelines, 
-                ensuring automation and efficiency in development and deployment processes.
+                {{ about.expertise.description }}
               </p>
             </div>
 
             <div class="detail-block" ref="detail2Ref">
               <h3 class="detail-title">Technical Skills</h3>
               <div class="skills-list">
-                <div class="skill-item">
-                  <span class="skill-name">Nuxt.js & Vue.js</span>
+                <div v-for="skill in about.skills" :key="skill.name" class="skill-item">
+                  <span class="skill-name">{{ skill.name }}</span>
                   <div class="skill-bar">
-                    <div class="skill-fill" data-width="95"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <span class="skill-name">Laravel & PHP</span>
-                  <div class="skill-bar">
-                    <div class="skill-fill" data-width="90"></div>
-                  </div>
-                </div>
-                <div class="skill-item">
-                  <span class="skill-name">DevOps & CI/CD</span>
-                  <div class="skill-bar">
-                    <div class="skill-fill" data-width="85"></div>
+                    <div class="skill-fill" :data-width="skill.level"></div>
                   </div>
                 </div>
               </div>
@@ -71,17 +54,9 @@
 
             <div class="detail-block" ref="detail3Ref">
               <div class="experience-grid">
-                <div class="exp-item">
-                  <span class="exp-number">2+</span>
-                  <span class="exp-label">Years Experience</span>
-                </div>
-                <div class="exp-item">
-                  <span class="exp-number">3+</span>
-                  <span class="exp-label">Major Projects</span>
-                </div>
-                <div class="exp-item">
-                  <span class="exp-number">2+</span>
-                  <span class="exp-label">Certifications</span>
+                <div v-for="exp in about.experience" :key="exp.label" class="exp-item">
+                  <span class="exp-number">{{ exp.number }}</span>
+                  <span class="exp-label">{{ exp.label }}</span>
                 </div>
               </div>
             </div>
@@ -94,6 +69,8 @@
 
 <script setup>
 const { gsap, animateOnScroll, clipPathReveal } = useGsap()
+const { projects } = useProject()
+const { about } = useIdentity()
 
 const aboutRef = ref(null)
 const labelRef = ref(null)

@@ -3,21 +3,21 @@
     <div class="contact-container">
       <!-- Section label -->
       <div class="section-label" ref="labelRef">
-        <span class="label-number">03</span>
-        <span class="label-text">GET IN TOUCH</span>
+        <span class="label-number">{{ contact.sectionNumber }}</span>
+        <span class="label-text">{{ contact.sectionLabel }}</span>
       </div>
 
       <!-- Large title -->
       <div class="contact-title-wrapper">
         <h2 class="contact-title">
           <div class="title-line" ref="title1Ref">
-            <span>Let's Create</span>
+            <span>{{ contact.title.lines[0] }}</span>
           </div>
           <div class="title-line" ref="title2Ref">
-            <span>Something</span>
+            <span>{{ contact.title.lines[1] }}</span>
           </div>
           <div class="title-line" ref="title3Ref">
-            <span> <i class="fas fa-star"> Amazing</i></span>
+            <span> <i class="fas fa-star"> {{ contact.title.lines[2] }}</i></span>
           </div>
         </h2>
       </div>
@@ -28,34 +28,33 @@
         <div class="contact-info" ref="infoRef">
           <div class="info-block">
             <h3 class="info-title">Email</h3>
-            <a href="mailto:fauzanguci1019@gmail.com" class="info-link">
-              fauzanguci1019@gmail.com
+            <a :href="`mailto:${contact.email}`" class="info-link">
+              {{ contact.email }}
             </a>
           </div>
 
           <div class="info-block">
             <h3 class="info-title">Education</h3>
             <p class="info-text">
-              SMKN 2 Cimahi<br>
-              Software & Game Development<br>
-              2021-2024
+              {{ contact.education.school }}<br>
+              {{ contact.education.major }}<br>
+              {{ contact.education.years }}
             </p>
           </div>
 
           <div class="info-block">
             <h3 class="info-title">Social</h3>
             <div class="social-links">
-              <a href="#" class="social-link">GitHub</a>
-              <a href="#" class="social-link">LinkedIn</a>
-              <a href="#" class="social-link">Twitter</a>
+              <a v-for="social in contact.social" :key="social.name" :href="social.url" class="social-link">{{ social.name }}</a>
             </div>
           </div>
 
           <div class="info-block">
             <h3 class="info-title">Certifications</h3>
             <p class="info-text">
-              • Vue.js Mid-Level Developer<br>
-              • BNSP Junior Coder<br>
+              <span v-for="(cert, index) in contact.certifications" :key="cert">
+                • {{ cert }}<br v-if="index < contact.certifications.length - 1">
+              </span>
             </p>
           </div>
         </div>
@@ -76,11 +75,9 @@
             <div class="form-group">
               <label class="form-label">Project Type</label>
               <select class="form-select" required>
-                <option value="">Select a type</option>
-                <option value="web">Web Development</option>
-                <option value="design">UI/UX Design</option>
-                <option value="animation">Animation</option>
-                <option value="other">Other</option>
+                <option v-for="type in contact.form.projectTypes" :key="type.value" :value="type.value">
+                  {{ type.label }}
+                </option>
               </select>
             </div>
 
@@ -90,7 +87,7 @@
             </div>
 
             <button type="submit" class="form-submit" ref="submitBtnRef">
-              <span class="submit-text">SEND MESSAGE</span>
+              <span class="submit-text">{{ contact.form.submitButtonText }}</span>
               <div class="submit-circle">
                 <span class="circle-arrow">→</span>
               </div>
@@ -111,6 +108,7 @@
 
 <script setup>
 const { gsap, animateOnScroll, magneticHover } = useGsap()
+const { contact } = useIdentity()
 
 const contactRef = ref(null)
 const labelRef = ref(null)

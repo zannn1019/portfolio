@@ -11,9 +11,9 @@
         </svg>
       </div>
       <span class="logo-text">
-        <span class="logo-first">AHMAD FAUZAN</span>
+        <span class="logo-first">{{ branding.logoText.first }}</span>
         <span class="logo-dot">•</span>
-        <span class="logo-last">DEV</span>
+        <span class="logo-last">{{ branding.logoText.last }}</span>
       </span>
     </NuxtLink>
       
@@ -42,12 +42,10 @@
         
         <div class="menu-footer">
           <div class="menu-social">
-            <a href="#" class="social-link">BEHANCE</a>
-            <a href="#" class="social-link">DRIBBBLE</a>
-            <a href="#" class="social-link">GITHUB</a>
+            <a v-for="social in menuSocial" :key="social.name" :href="social.url" class="social-link">{{ social.name }}</a>
           </div>
           <div class="menu-info">
-            <p>fauzanguci1019@gmail.com</p>
+            <p>{{ personal.email }}</p>
           </div>
         </div>
       </div>
@@ -57,6 +55,7 @@
 
 <script setup>
 const { gsap, magneticHover, splitTextAnimation } = useGsap()
+const { branding, navigation, personal } = useIdentity()
 
 const navRef = ref(null)
 const logoRef = ref(null)
@@ -64,12 +63,8 @@ const menuBtnRef = ref(null)
 const overlayRef = ref(null)
 const isMenuOpen = ref(false)
 
-const menuItems = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '#about' },
-  { name: 'Works', path: '#work' },
-  { name: 'Contact', path: '#contact' }
-]
+const menuItems = navigation.menuItems
+const menuSocial = navigation.menuSocial
 
 let cleanupMagnetic = null
 
