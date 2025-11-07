@@ -156,5 +156,26 @@
         "url": "https://www.linkedin.com/in/ahmad-fauzan-49674a2a0"
       }
     ]
+  },
+  "seo": {
+    "siteUrl": "http://webzan.my.id",
+    "siteName": "Ahmad Fauzan Portfolio",
+    "twitterHandle": "@zannn1019",
+    "keywords": [
+      "Fullstack Developer",
+      "Nuxt.js Developer",
+      "Laravel Developer",
+      "Vue.js Developer",
+      "Web Development",
+      "PHP Developer",
+      "DevOps",
+      "CI/CD",
+      "Ahmad Fauzan",
+      "Indonesia Developer",
+      "Frontend Developer",
+      "Backend Developer"
+    ],
+    "ogImage": "/og-image.jpg",
+    "themeColor": "#000000"
   }
 }

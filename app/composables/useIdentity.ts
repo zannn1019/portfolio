@@ -10,6 +10,7 @@ export const useIdentity = () => {
         about: identity.about,
         contact: identity.contact,
         navigation: identity.navigation,
-        footer: identity.footer
-    }
+      footer: identity.footer,
+      seo: identity.seo
+  }
 }

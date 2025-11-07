@@ -12,6 +12,13 @@ export default defineNuxtConfig({
     // Use root path for Vercel/Netlify, '/portfolio/' for GitHub Pages
     baseURL: '/',
     buildAssetsDir: 'assets',
+    head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1'
+    }
   },
 
   // Target static for deployment
@@ -21,5 +28,15 @@ export default defineNuxtConfig({
       crawlLinks: true,
       routes: ['/']
     }
+  },
+
+  // SEO & Performance
+  experimental: {
+    payloadExtraction: false
+  },
+
+  // Enable compression
+  routeRules: {
+    '/': { prerender: true }
   }
 })
