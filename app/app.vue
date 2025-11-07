@@ -1,22 +1,26 @@
 <template>
   <div>
+    <Analytics />
     <CustomCursor />
     <NuxtPage />
   </div>
 </template>
 
 <script setup>
+import { Analytics } from "@vercel/analytics/nuxt";
 useHead({
-  title: 'Ahmad Fauzan - Fullstack Web Developer',
+  title: "Ahmad Fauzan - Fullstack Web Developer",
   meta: [
-    { charset: 'utf-8' },
-    { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-    { name: 'description', content: 'Ahmad Fauzan - Fullstack Web Developer specializing in Nuxt.js and Laravel' }
+    { charset: "utf-8" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    {
+      name: "description",
+      content:
+        "Ahmad Fauzan - Fullstack Web Developer specializing in Nuxt.js and Laravel",
+    },
   ],
-  link: [
-    { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
-  ]
-})
+  link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+});
 </script>
 
 <style>
@@ -29,13 +33,14 @@ useHead({
 
 :root {
   --black: #000000;
-  --white: #FFFFFF;
-  --gray: #1A1A1A;
-  --light-gray: #F5F5F5;
+  --white: #ffffff;
+  --gray: #1a1a1a;
+  --light-gray: #f5f5f5;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+    sans-serif;
   background: var(--white);
   color: var(--black);
   overflow-x: hidden;
