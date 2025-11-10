@@ -4,6 +4,16 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss'],
 
+  // Runtime configuration
+  runtimeConfig: {
+    // Private keys (server-side only)
+    web3formsAccessKey: '', // Set via WEB3FORMS_ACCESS_KEY env variable
+    // Public keys (exposed to client)
+    public: {
+      siteUrl: 'http://webzan.my.id'
+    }
+  },
+
   // Enable SSG (Static Site Generation)
   ssr: true,
 

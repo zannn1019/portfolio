@@ -62,19 +62,43 @@
         <!-- Right: Contact form -->
         <div class="contact-form-wrapper" ref="formRef">
           <form class="contact-form" @submit.prevent="handleSubmit">
+            <!-- Success/Error Messages -->
+            <div v-if="formStatus.message" :class="['form-message', formStatus.type]">
+              {{ formStatus.message }}
+            </div>
+
             <div class="form-group">
               <label class="form-label">Name</label>
-              <input type="text" class="form-input" placeholder="John Doe" required>
+              <input 
+                v-model="formData.name"
+                type="text" 
+                class="form-input" 
+                placeholder="John Doe" 
+                required
+                :disabled="formStatus.loading"
+              >
             </div>
 
             <div class="form-group">
               <label class="form-label">Email</label>
-              <input type="email" class="form-input" placeholder="john@example.com" required>
+              <input 
+                v-model="formData.email"
+                type="email" 
+                class="form-input" 
+                placeholder="john@example.com" 
+                required
+                :disabled="formStatus.loading"
+              >
             </div>
 
             <div class="form-group">
               <label class="form-label">Project Type</label>
-              <select class="form-select" required>
+              <select 
+                v-model="formData.projectType"
+                class="form-select" 
+                required
+                :disabled="formStatus.loading"
+              >
                 <option v-for="type in contact.form.projectTypes" :key="type.value" :value="type.value">
                   {{ type.label }}
                 </option>
@@ -83,13 +107,27 @@
 
             <div class="form-group">
               <label class="form-label">Message</label>
-              <textarea class="form-textarea" placeholder="Tell me about your project..." rows="5" required></textarea>
+              <textarea 
+                v-model="formData.message"
+                class="form-textarea" 
+                placeholder="Tell me about your project..." 
+                rows="5" 
+                required
+                :disabled="formStatus.loading"
+              ></textarea>
             </div>
 
-            <button type="submit" class="form-submit" ref="submitBtnRef">
-              <span class="submit-text">{{ contact.form.submitButtonText }}</span>
+            <button 
+              type="submit" 
+              class="form-submit" 
+              ref="submitBtnRef"
+              :disabled="formStatus.loading"
+            >
+              <span class="submit-text">
+                {{ formStatus.loading ? 'SENDING...' : contact.form.submitButtonText }}
+              </span>
               <div class="submit-circle">
-                <span class="circle-arrow">→</span>
+                <span class="circle-arrow">{{ formStatus.loading ? '⏳' : '→' }}</span>
               </div>
             </button>
           </form>
@@ -121,16 +159,66 @@ const submitBtnRef = ref(null)
 
 let cleanupMagnetic = null
 
-const handleSubmit = () => {
+// Form data
+const formData = ref({
+  name: '',
+  email: '',
+  projectType: '',
+  message: ''
+})
+
+// Form status
+const formStatus = ref({
+  loading: false,
+  message: '',
+  type: '' // 'success' or 'error'
+})
+
+const handleSubmit = async () => {
+  // Reset status
+  formStatus.value.message = ''
+  formStatus.value.loading = true
+
+  // Button animation
   gsap.to('.form-submit', {
     scale: 0.95,
     duration: 0.1,
     yoyo: true,
-    repeat: 1,
-    onComplete: () => {
-      alert('Message sent! (This is a demo)')
-    }
+    repeat: 1
   })
+
+  try {
+    // Send email via API
+    const response = await $fetch('/api/contact', {
+      method: 'POST',
+      body: formData.value
+    })
+
+    // Success
+    formStatus.value.type = 'success'
+    formStatus.value.message = '✓ Message sent successfully! I\'ll get back to you soon.'
+    
+    // Reset form
+    formData.value = {
+      name: '',
+      email: '',
+      projectType: '',
+      message: ''
+    }
+
+    // Clear success message after 5 seconds
+    setTimeout(() => {
+      formStatus.value.message = ''
+    }, 5000)
+
+  } catch (error) {
+    // Error
+    formStatus.value.type = 'error'
+    formStatus.value.message = '✗ Failed to send message. Please try again or email me directly.'
+    console.error('Contact form error:', error)
+  } finally {
+    formStatus.value.loading = false
+  }
 }
 
 onMounted(() => {
@@ -390,6 +478,37 @@ onMounted(() => {
   gap: 2rem;
 }
 
+.form-message {
+  padding: 1rem 1.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  animation: slideDown 0.3s ease;
+}
+
+.form-message.success {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.form-message.error {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -489,6 +608,16 @@ onMounted(() => {
 
 .form-submit:hover .submit-circle {
   transform: rotate(180deg);
+}
+
+.form-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-submit:disabled:hover::before {
+  width: 0;
+  height: 0;
 }
 
 .circle-arrow {
