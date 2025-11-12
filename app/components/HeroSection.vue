@@ -86,89 +86,95 @@ const scrollRef = ref(null)
 let cleanupMagnetic = null
 
 onMounted(() => {
-  const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
+  const isLoaded = useState('isLoaded')
+  
+  // Wait for loading screen to finish before starting animations
+  const startAnimations = () => {
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
 
-  // Animated entrance sequence
-  tl.from('.hero-bg', {
-    opacity: 0,
-    duration: 1
-  })
-  .from('.label-line', {
-    scaleX: 0,
-    transformOrigin: 'left',
-    duration: 0.8
-  }, '-=0.5')
-  .from('.label-text', {
-    opacity: 0,
-    x: -20,
-    duration: 0.6
-  }, '-=0.4')
-  .from('.title-word', {
-    yPercent: 120,
-    opacity: 0,
-    rotationX: -90,
-    stagger: 0.2,
-    duration: 1.2,
-    ease: 'back.out(1.7)'
-  }, '-=0.3')
-  .from('.description-text', {
-    y: 30,
-    opacity: 0,
-    duration: 0.8
-  }, '-=0.5')
-  .from('.hero-cta > *', {
-    y: 30,
-    opacity: 0,
-    stagger: 0.15,
-    duration: 0.8
-  }, '-=0.4')
-  .from('.scroll-indicator', {
-    y: -30,
-    opacity: 0,
-    duration: 0.8
-  }, '-=0.5')
+    // Animated entrance sequence
+    tl.from('.hero-bg', {
+      opacity: 0,
+      duration: 1
+    })
+    .from('.label-line', {
+      scaleX: 0,
+      transformOrigin: 'left',
+      duration: 0.8
+    }, '-=0.5')
+    .from('.label-text', {
+      opacity: 0,
+      x: -20,
+      duration: 0.6
+    }, '-=0.4')
+    .from('.title-word', {
+      yPercent: 120,
+      opacity: 0,
+      rotationX: -90,
+      stagger: 0.2,
+      duration: 1.2,
+      ease: 'back.out(1.7)'
+    }, '-=0.3')
+    .from('.description-text', {
+      y: 30,
+      opacity: 0,
+      duration: 0.8
+    }, '-=0.5')
+    .from('.hero-cta > *', {
+      y: 30,
+      opacity: 0,
+      stagger: 0.15,
+      duration: 0.8
+    }, '-=0.4')
+    .from('.scroll-indicator', {
+      y: -30,
+      opacity: 0,
+      duration: 0.8
+    }, '-=0.5')
 
-  // Grid lines animation
-  gsap.from('.grid-line', {
-    scaleY: 0,
-    transformOrigin: 'top',
-    stagger: 0.02,
-    duration: 1,
-    ease: 'power2.inOut',
-    delay: 0.5
-  })
+    // Grid lines animation
+    gsap.from('.grid-line', {
+      scaleY: 0,
+      transformOrigin: 'top',
+      stagger: 0.02,
+      duration: 1,
+      ease: 'power2.inOut',
+      delay: 0.5
+    })
 
-  // Floating elements parallax
-  gsap.to('.float-1', {
-    y: -50,
-    x: 30,
-    rotation: 180,
-    duration: 20,
-    repeat: -1,
-    yoyo: true,
-    ease: 'sine.inOut'
-  })
+    // Floating elements parallax
+    gsap.to('.float-1', {
+      y: -50,
+      x: 30,
+      rotation: 180,
+      duration: 20,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    })
 
-  gsap.to('.float-2', {
-    y: 30,
-    x: -40,
-    rotation: -180,
-    duration: 15,
-    repeat: -1,
-    yoyo: true,
-    ease: 'sine.inOut'
-  })
+    gsap.to('.float-2', {
+      y: 30,
+      x: -40,
+      rotation: -180,
+      duration: 15,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    })
 
-  gsap.to('.float-3', {
-    y: -40,
-    x: 20,
-    rotation: 360,
-    duration: 25,
-    repeat: -1,
-    yoyo: true,
-    ease: 'sine.inOut'
-  })
+    gsap.to('.float-3', {
+      y: -40,
+      x: 20,
+      rotation: 360,
+      duration: 25,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    })
+  }
 
+  // Continuous animations (independent of loading)
   // Scroll circle rotation
   gsap.to('.scroll-circle', {
     rotation: 360,
@@ -213,6 +219,17 @@ onMounted(() => {
   }
 
   window.addEventListener('mousemove', handleMouseMove)
+
+  // Start animations when loading is complete
+  if (isLoaded.value) {
+    startAnimations()
+  } else {
+    watch(isLoaded, (newVal) => {
+      if (newVal) {
+        startAnimations()
+      }
+    })
+  }
 
   onBeforeUnmount(() => {
     window.removeEventListener('mousemove', handleMouseMove)

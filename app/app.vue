@@ -1,13 +1,21 @@
 <template>
   <div>
+    <LoadingScreen @loaded="handleLoaded" />
     <Analytics />
     <CustomCursor />
-    <NuxtPage />
+    <NuxtPage :page-key="route => route.fullPath" />
   </div>
 </template>
 
 <script setup>
 import { Analytics } from "@vercel/analytics/nuxt";
+
+const isLoaded = useState('isLoaded', () => false)
+
+const handleLoaded = () => {
+  isLoaded.value = true
+}
+
 useHead({
   title: "Ahmad Fauzan - Fullstack Web Developer",
   meta: [
