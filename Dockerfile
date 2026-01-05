@@ -7,8 +7,9 @@ ENV NUXT_TELEMETRY_DISABLED=1
 
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
+ENV NODE_ENV=development
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --include=dev
 
 FROM base AS build
 ENV NODE_ENV=development
