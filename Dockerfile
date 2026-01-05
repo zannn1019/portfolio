@@ -4,6 +4,7 @@ FROM node:20-alpine AS base
 WORKDIR /app
 ENV NODE_ENV=production
 ENV NUXT_TELEMETRY_DISABLED=1
+ENV NITRO_PRESET=node-server
 
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
