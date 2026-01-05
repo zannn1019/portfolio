@@ -60,6 +60,31 @@ yarn build
 bun run build
 ```
 
+## Docker
+
+Build and run with Docker:
+
+```bash
+# build image
+docker build -t portfolio .
+
+# run container (override port as needed)
+docker run --rm -p 3000:3000 \
+	-e WEB3FORMS_ACCESS_KEY=your_key_here \
+	portfolio
+```
+
+The container serves the built app on port 3000 via `node .output/server/index.mjs`. Set any required runtime env vars (e.g. `WEB3FORMS_ACCESS_KEY`).
+
+Or use Docker Compose (ports and env can be overridden as needed):
+
+```bash
+docker compose up --build
+
+# or detached
+docker compose up --build -d
+```
+
 Locally preview production build:
 
 ```bash

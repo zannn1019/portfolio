@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  portfolio:
+    build: .
+    image: portfolio:latest
+    ports:
+      - "3000:3000"
+    environment:
+      # Provide your Web3Forms access key at runtime or via .env
+      WEB3FORMS_ACCESS_KEY: ${WEB3FORMS_ACCESS_KEY:-}
+    restart: unless-stopped
