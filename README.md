@@ -1,5 +1,9 @@
 # Nuxt Minimal Starter
 
+## Documentation
+
+Project guides live in: `docs/README.md`
+
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup

@@ -18,6 +18,8 @@ const handleLoaded = () => {
 
 useHead({
   title: "Ahmad Fauzan - Fullstack Web Developer",
+  link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+  // Open Graph / Facebook
   meta: [
     { charset: "utf-8" },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -26,47 +28,22 @@ useHead({
       content:
         "Ahmad Fauzan - Fullstack Web Developer specializing in Nuxt.js and Laravel",
     },
+    { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://webzan.my.id/" },
+    { property: "og:title", content: "Ahmad Fauzan - Fullstack Web Developer" },
+    { property: "og:description", content: "Ahmad Fauzan - Fullstack Web Developer specializing in Nuxt.js and Laravel" },
+    { property: "og:image", content: "https://webzan.my.id/og-image.jpg" },
+
+    // Twitter
+    { property: "twitter:card", content: "summary_large_image" },
+    { property: "twitter:url", content: "https://webzan.my.id/" },
+    { property: "twitter:title", content: "Ahmad Fauzan - Fullstack Web Developer" },
+    { property: "twitter:description", content: "Ahmad Fauzan - Fullstack Web Developer specializing in Nuxt.js and Laravel" },
+    { property: "twitter:image", content: "https://webzan.my.id/og-image.jpg" },
   ],
-  link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
 });
 </script>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  cursor: none;
-}
-
-:root {
-  --black: #000000;
-  --white: #ffffff;
-  --gray: #1a1a1a;
-  --light-gray: #f5f5f5;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
-    sans-serif;
-  background: var(--white);
-  color: var(--black);
-  overflow-x: hidden;
-  cursor: none;
-}
-
-@media (max-width: 1024px) {
-  body {
-    cursor: auto;
-  }
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-::selection {
-  background: var(--black);
-  color: var(--white);
-}
+/* Global styles moved to assets/css/main.css */
 </style>

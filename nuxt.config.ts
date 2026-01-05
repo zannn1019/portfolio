@@ -24,6 +24,21 @@ export default defineNuxtConfig({
     buildAssetsDir: 'assets',
     head: {
       htmlAttrs: {
+
+        modules: [
+          '@nuxtjs/tailwindcss'
+        ],
+
+        css: [
+          'assets/css/main.css'
+        ],
+
+        // Deployment configuration
+        app: {
+          // Use root path for Vercel/Netlify, '/portfolio/' for GitHub Pages
+          baseURL: '/',
+          head: {
+            htmlAttrs: {
         lang: 'en'
       },
       charset: 'utf-8',
