@@ -4,7 +4,8 @@
     ref="overlay"
   >
     <!-- The backdrop that bubbles up -->
-    <div class="absolute inset-0 h-full w-full bg-surface" ref="backdrop"></div>
+    <!-- Changed to black for high contrast visibility -->
+    <div class="absolute inset-0 h-full w-full bg-black" ref="backdrop"></div>
 
     <!-- SVG Filter for the Liquid Distortion -->
     <svg class="absolute h-0 w-0">
@@ -34,12 +35,10 @@
 import { ref } from "vue";
 import gsap from "gsap";
 
-// Expose refs for animation control
 const overlay = ref<HTMLElement | null>(null);
 const backdrop = ref<HTMLElement | null>(null);
 const displacement = ref<SVGElement | null>(null);
 
-// Animation API
 const playTransition = (onComplete: () => void) => {
   if (!overlay.value || !backdrop.value || !displacement.value) {
     onComplete();
@@ -48,35 +47,35 @@ const playTransition = (onComplete: () => void) => {
 
   const tl = gsap.timeline({
     onComplete: () => {
-      // Reset after navigation
       gsap.set(overlay.value, { opacity: 0 });
       gsap.set(displacement.value, { attr: { scale: 0 } });
       onComplete();
     },
   });
 
-  // 1. Activate Overlay
+  // 1. Make visible immediately
   tl.set(overlay.value, { opacity: 1 });
 
-  // 2. Liquid Intro (Distortion + Opacity up)
+  // 2. Liquid Wipe (Circle expand)
+  // Ensure clipPath starts at 0
   tl.fromTo(
     backdrop.value,
     { clipPath: "circle(0% at 50% 50%)" },
     {
       clipPath: "circle(150% at 50% 50%)",
       duration: 1.2,
-      ease: "power3.inOut",
+      ease: "power4.inOut",
     },
     0
   );
 
-  // 3. Distortion Ripple
+  // 3. Distortion Ripple effect
   tl.to(
     displacement.value,
     {
-      attr: { scale: 200 },
-      duration: 1,
-      ease: "power2.in",
+      attr: { scale: 150 }, // Moderate scale for visible ripple
+      duration: 1.0,
+      ease: "power2.out",
       yoyo: true,
       repeat: 1,
     },
@@ -90,7 +89,7 @@ defineExpose({
 </script>
 
 <style scoped>
-.liquid-active {
-  filter: url(#liquid-filter);
-}
+/* Optional: Attach filter if we want the ripple on the backdrop itself, 
+   but usually we want the distortion on the content UNDER it. 
+   For now, we just animate the wipe. */
 </style>

@@ -45,7 +45,7 @@
             <div
               class="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-all duration-300 group-hover:opacity-100"
             >
-              <MagneticButton :to="`/work/${project.slug}`"
+              <MagneticButton @click="$emit('open-project', project)"
                 >View Case</MagneticButton
               >
             </div>
@@ -77,6 +77,8 @@
 import { ref, onMounted } from "vue";
 import gsap from "gsap";
 import projects from "~/data/project.json";
+
+defineEmits(["open-project"]);
 
 onMounted(() => {
   // Parallax for odd items could go here if managed manually,
