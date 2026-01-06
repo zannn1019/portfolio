@@ -1,51 +1,104 @@
 [
   {
+    "slug": "electronic-signature-system",
     "title": "Electronic Signature System (TTE)",
-    "description": "Developed new frontend features, bug fixing, and managed deployment on OKD (OpenShift). Built CI/CD pipelines for automated testing and deployment.",
+    "description": "Developed new frontend features, bug fixing, and managed deployment on OKD (OpenShift). Built CI/CD pipelines.",
+    "fullDescription": "A comprehensive enterprise solution for digital document signing and verification. This project involved migrating legacy systems to a modern Nuxt architecture, implementing biometric security features, and ensuring compliance with national digital signature standards.",
+    "role": "Frontend Lead & DevOps",
+    "client": "Government Agency",
     "tags": ["Frontend", "DevOps"],
     "year": "2025",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png?text=Project+Image"
+    "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1470&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop"
+    ]
   },
   {
+    "slug": "web-maintenance",
     "title": "Web Application Maintenance",
-    "description": "Performed routine maintenance including security updates, bug fixes, and performance improvements. Implemented new features and provided technical support.",
+    "description": "Performed routine maintenance including security updates, bug fixes, and performance improvements.",
+    "fullDescription": "Ongoing reliability engineering for a high-traffic web platform. Focus areas included reducing technical debt, optimizing database queries, and implementing automated regression testing suites.",
+    "role": "Fullstack Engineer",
+    "client": "Corporate Client",
     "tags": ["Fullstack", "Maintenance"],
     "year": "2024",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png?text=Project+Image"
+    "image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2669&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2669&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2672&auto=format&fit=crop"
+    ]
   },
   {
-    "title": "Industry Grading System Website",
-    "description": "Full-stack development including Use Case, Sequence, Activity, and Database diagrams. Collaborated with UI/UX team to create interactive interfaces.",
+    "slug": "industry-grading-system",
+    "title": "Industry Grading System",
+    "description": "Full-stack development, including diagrams and system architecture.",
+    "fullDescription": "A robust grading and certification platform designed for industrial compliance. Key features included real-time score calculation, PDF certificate generation, and an intricate role-based access control system.",
+    "role": "System Architect",
+    "client": "Industrial Sector",
     "tags": ["Fullstack", "Database"],
     "year": "2023",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png?text=Project+Image"
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=2676&auto=format&fit=crop"
+    ]
   },
   {
+    "slug": "company-profile",
     "title": "Company Profile Website",
-    "description": "Developed a company profile website to showcase services and projects. Implemented responsive design and optimized for performance.",
+    "description": "Showcase services and projects with responsive design.",
+    "fullDescription": "A visually striking corporate presence built to communicate trust and innovation. We utilized WebGL micro-interactions and smooth scrolling to increase user engagement by 40%.",
+    "role": "Frontend Developer",
+    "client": "Tech Startup",
     "tags": ["Frontend", "Company"],
     "year": "2024",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png?text=Project+Image"
+    "image": "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2669&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2669&auto=format&fit=crop"
+    ]
   },
   {
+    "slug": "it-helpdesk",
     "title": "IT Helpdesk System",
-    "description": "Contributed to the development of an IT helpdesk system, focusing on ticket management, user authentication, and reporting features.",
+    "description": "Ticket management, user authentication, and reporting features.",
+    "fullDescription": "An internal tool streamlining IT support workflows. The dashboard allows agents to triage tickets efficiently, with real-time Slack integration for critical alerts.",
+    "role": "Frontend Developer",
+    "client": "Internal Tool",
     "tags": ["Frontend", "Helpdesk"],
     "year": "2024",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png?text=Project+Image"
+    "image": "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2672&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&w=2672&auto=format&fit=crop"
+    ]
   },
   {
+    "slug": "portfolio",
     "title": "Portfolio Website",
-    "description": "Designed and developed a personal portfolio website to showcase projects and skills. Implemented SEO best practices and performance optimizations.",
+    "description": "Ethereal Brutalism personal showcase.",
+    "fullDescription": "The site you are currently visiting. Built to push the boundaries of what a personal site can be, utilizing 'Ethereal Brutalism' to merge raw structural elements with fluid motion.",
+    "role": "Designer & Developer",
+    "client": "Personal",
     "tags": ["Frontend", "Portfolio"],
     "year": "2025",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png?text=Project+Image"
+    "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+    ]
   },
   {
-    "title": "Chrome Extension Development",
-    "description": "Developed a Chrome extension for enhanced productivity, featuring task management and time tracking functionalities.",
-    "tags": ["Frontend", "Chrome Extension"],
+    "slug": "chrome-extension",
+    "title": "Chrome Extension",
+    "description": "Task management and time tracking functionalities.",
+    "fullDescription": "A productivity booster that lives in the browser. Features include a Pomodoro timer, site blocker, and daily goal tracking, all synced via Firebase.",
+    "role": "Fullstack Developer",
+    "client": "Open Source",
+    "tags": ["Frontend", "Extension"],
     "year": "2023",
-    "image": "https://placehold.co/600x400/000000/FFFFFF/png?text=Project+Image"
+    "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2670&auto=format&fit=crop",
+    "gallery": [
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2670&auto=format&fit=crop"
+    ]
   }
 ]
