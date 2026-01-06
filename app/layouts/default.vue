@@ -3,25 +3,16 @@
     <!-- Global Transition Overlay -->
     <TransitionOverlay ref="transitionRef" />
 
-    <!-- Global Noise Overlay -->
-    <div
-      class="pointer-events-none fixed inset-0 z-[9999] opacity-[0.03] mix-blend-overlay"
-    >
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <filter id="noise">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="0.65"
-            numOctaves="3"
-            stitchTiles="stitch"
-          />
-        </filter>
-        <rect width="100%" height="100%" filter="url(#noise)" />
-      </svg>
-    </div>
+    <!-- Global WebGL Fog/Grain -->
+    <WebGLBackground
+      class="fixed inset-0 z-[50] mix-blend-overlay opacity-30 pointer-events-none"
+    />
 
     <!-- Custom Cursor -->
     <CustomCursor />
+
+    <!-- Preloader -->
+    <Preloader @complete="handlePreloaderComplete" />
 
     <Header />
 
@@ -41,9 +32,16 @@ import Header from "~/components/organisms/Header.vue";
 import Footer from "~/components/organisms/Footer.vue";
 import CustomCursor from "~/components/atoms/CustomCursor.vue";
 import TransitionOverlay from "~/components/atoms/TransitionOverlay.vue";
+import Preloader from "~/components/molecules/Preloader.vue";
+import WebGLBackground from "~/components/atoms/WebGLBackground.vue";
 
 const transitionRef = ref<InstanceType<typeof TransitionOverlay> | null>(null);
 const router = useRouter();
+
+const handlePreloaderComplete = () => {
+  // Optional: Trigger any entrance animations on the main page here
+  console.log("Preloader complete");
+};
 
 // Intercept navigation to play transition
 // Intercept navigation to play transition
