@@ -110,28 +110,61 @@
               />
             </div>
           </div>
+            <!-- Next Project Navigation -->
+            <div class="mt-40 border-t border-white/10 pt-20">
+              <p class="mb-8 font-mono text-xs uppercase text-text-secondary">Next Case</p>
+              
+              <button
+                v-if="nextProject"
+                @click="emit('open-next', nextProject)"
+                class="group flex w-full items-center justify-between text-left"
+              >
+                <span class="font-display text-4xl uppercase text-white transition-colors group-hover:text-text-secondary md:text-6xl">
+                  {{ nextProject.title }}
+                </span>
+                
+                <div class="flex h-12 w-12 items-center justify-center rounded-full border border-white/20 transition-all group-hover:scale-125 group-hover:border-white">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="transition-transform group-hover:-rotate-45">
+                    <path d="M5 12H19" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref, computed } from "vue";
 import { useNuxtApp } from "#app";
 import gsap from "gsap";
+import projectsData from "~/data/project.json";
 
 const props = defineProps<{
   project: any;
 }>();
 
-const emit = defineEmits(["close"]);
+const emit = defineEmits(["close", "open-next"]);
 const container = ref(null);
 const nuxtApp = useNuxtApp();
+
+// Find current index and next project
+const nextProject = computed(() => {
+  const currentIndex = projectsData.findIndex(p => p.title === props.project.title);
+  if (currentIndex === -1) return null;
+  
+  // Loop back to start if at end
+  const nextIndex = (currentIndex + 1) % projectsData.length;
+  return projectsData[nextIndex];
+});
 
 onMounted(() => {
   // Lock body scroll and stop Lenis
   document.body.style.overflow = "hidden";
+  document.body.classList.add("overlay-active"); // Add class to hide header
   if (nuxtApp.$lenis) {
     (nuxtApp.$lenis as any).stop();
   }
@@ -158,6 +191,7 @@ onMounted(() => {
 onUnmounted(() => {
   // Unlock body and resume Lenis
   document.body.style.overflow = "";
+  document.body.classList.remove("overlay-active");
   if (nuxtApp.$lenis) {
     (nuxtApp.$lenis as any).start();
   }

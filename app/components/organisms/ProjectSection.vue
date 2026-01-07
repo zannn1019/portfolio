@@ -25,12 +25,15 @@
         <div
           v-for="(project, index) in projects"
           :key="index"
-          class="project-card group relative"
+          class="project-card group relative perspective-1000"
           :class="{ 'md:mt-32': index % 2 !== 0 }"
+          @mousemove="(e) => handleCardMove(e, index)"
+          @mouseleave="(e) => handleCardLeave(e, index)"
         >
           <!-- Image -->
           <div
-            class="relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-surface"
+            class="card-inner relative aspect-[4/3] w-full overflow-hidden rounded-sm bg-surface transition-transform duration-100 ease-linear will-change-transform"
+            :ref="el => setCardRef(el, index)"
           >
             <div
               class="absolute inset-0 z-10 bg-black/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
@@ -80,6 +83,48 @@ import projects from "~/data/project.json";
 
 defineEmits(["open-project"]);
 
+const cardRefs = ref<HTMLElement[]>([]);
+
+const setCardRef = (el: any, index: number) => {
+  if (el) cardRefs.value[index] = el;
+};
+
+// Magnetic Tilt Logic
+const handleCardMove = (e: MouseEvent, index: number) => {
+  const card = cardRefs.value[index];
+  if (!card) return;
+
+  const rect = card.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  
+  const centerX = rect.width / 2;
+  const centerY = rect.height / 2;
+  
+  const rotateX = ((y - centerY) / centerY) * -5; // Max 5deg tilt
+  const rotateY = ((x - centerX) / centerX) * 5;
+
+  gsap.to(card, {
+    rotateX: rotateX,
+    rotateY: rotateY,
+    scale: 1.02,
+    duration: 0.5,
+    ease: "power2.out"
+  });
+};
+
+const handleCardLeave = (e: MouseEvent, index: number) => {
+  const card = cardRefs.value[index];
+  if (!card) return;
+  
+  gsap.to(card, {
+    rotateX: 0,
+    rotateY: 0,
+    scale: 1,
+    duration: 0.5,
+    ease: "power2.out"
+  });
+};
 onMounted(() => {
   // Parallax for odd items could go here if managed manually,
   // but CSS margin-top on odd items handles the layout stagger nicely.

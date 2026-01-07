@@ -32,6 +32,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+*{
+  cursor: hidden !important;
+}
+
 h1,
 h2,
 h3,
@@ -84,4 +88,11 @@ html.lenis body {
 
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
+}
+
+/* Hide Header when Overlay is Active */
+body.overlay-active header {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
 }

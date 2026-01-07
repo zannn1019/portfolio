@@ -2,7 +2,19 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/image'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxt/image', '@nuxtjs/sitemap', '@nuxtjs/robots'],
+  
+  site: {
+    url: 'https://webzan.my.id',
+    name: 'WebZan Portfolio'
+  },
+  
+  sitemap: {
+    sources: [
+      '/api/__sitemap__/urls'
+    ]
+  },
+
   image: {
     domains: ['images.unsplash.com']
   },
@@ -21,7 +33,7 @@ export default defineNuxtConfig({
     web3formsAccessKey: '', // Set via WEB3FORMS_ACCESS_KEY env variable
     // Public keys (exposed to client)
     public: {
-      siteUrl: 'http://webzan.my.id'
+      siteUrl: 'https://webzan.my.id'
     }
   },
 

@@ -33,7 +33,7 @@
         class="relative mt-20 h-[60vh] w-full overflow-hidden rounded-sm"
         ref="imageContainer"
       >
-        <!-- Placeholder for now, can be replaced with NuxtImg -->
+        <!-- Abstract Background (Default) -->
         <div
           ref="heroImage"
           class="absolute inset-0 h-[120%] w-full bg-surface bg-[url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop')] bg-cover bg-center grayscale filter transition-all duration-700 hover:grayscale-0"
@@ -43,6 +43,13 @@
           <p class="font-mono text-sm uppercase text-white/70">
             {{ identity.hero.description }}
           </p>
+        </div>
+
+        <div class="absolute bottom-6 right-6">
+          <div class="flex items-center gap-4">
+            <div class="h-[1px] w-12 bg-white/20"></div>
+            <span class="font-display text-xs uppercase tracking-widest text-white/50">SCROLL</span>
+          </div>
         </div>
       </div>
     </div>
@@ -67,8 +74,9 @@ const heroImage = ref<HTMLElement | null>(null);
 
 onMounted(() => {
   if (imageContainer.value && heroImage.value) {
+    // Parallax for image
     gsap.to(heroImage.value, {
-      yPercent: -20, // Parallax movement
+      yPercent: -20,
       ease: "none",
       scrollTrigger: {
         trigger: imageContainer.value,
@@ -78,7 +86,7 @@ onMounted(() => {
       },
     });
 
-    // Initial Reveal
+    // Initial Reveal (Global)
     gsap.from(imageContainer.value, {
       scale: 0.9,
       opacity: 0,
