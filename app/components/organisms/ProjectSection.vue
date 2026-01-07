@@ -42,7 +42,6 @@
             <NuxtImg
               :src="project.image"
               :alt="project.title"
-              provider="unsplash"
               sizes="sm:100vw md:50vw lg:600px"
               format="webp"
               quality="80"
