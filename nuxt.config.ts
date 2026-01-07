@@ -9,10 +9,10 @@ export default defineNuxtConfig({
     name: 'WebZan Portfolio'
   },
   
+  // Sitemap configuration
   sitemap: {
-    sources: [
-      '/api/__sitemap__/urls'
-    ]
+    // Default behavior is usually fine for static sites.
+    // If we need dynamic routes, we can add them here or use a server route.
   },
 
   robots: {
