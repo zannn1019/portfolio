@@ -39,9 +39,13 @@
               class="absolute inset-0 z-10 bg-black/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
             ></div>
             <!-- NuxtImg would go here -->
-            <img
+            <NuxtImg
               :src="project.image"
               :alt="project.title"
+              provider="unsplash"
+              sizes="sm:100vw md:50vw lg:600px"
+              format="webp"
+              quality="80"
               class="h-full w-full object-cover transition-transform duration-700 will-change-transform group-hover:scale-110"
             />
 

@@ -15,6 +15,19 @@ export default defineNuxtConfig({
     ]
   },
 
+  robots: {
+    // Force standard robots.txt output
+    groups: [
+      {
+        userAgent: ['*'],
+        allow: '/',
+        disallow: ['/api/']
+      }
+    ],
+    // Disable any experimental or non-standard headers if they exist in defaults
+    header: false 
+  },
+
   image: {
     domains: ['images.unsplash.com']
   },
