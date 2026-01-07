@@ -4,7 +4,7 @@
     <TransitionOverlay ref="transitionRef" />
 
     <!-- Global WebGL Fog/Grain -->
-    <WebGLBackground
+    <LazyWebGLBackground
       class="fixed inset-0 z-[50] mix-blend-overlay opacity-30 pointer-events-none"
     />
 

@@ -143,17 +143,21 @@ const resize = () => {
   if (!canvas.value || !gl || !program) return;
   const displayWidth = window.innerWidth;
   const displayHeight = window.innerHeight;
+  
+  // Optimization: Render at 0.5x resolution to save GPU
+  // The noise/fog will still look good (even softer)
+  const scale = 0.5;
 
   if (
-    canvas.value.width !== displayWidth ||
-    canvas.value.height !== displayHeight
+    canvas.value.width !== displayWidth * scale ||
+    canvas.value.height !== displayHeight * scale
   ) {
-    canvas.value.width = displayWidth;
-    canvas.value.height = displayHeight;
+    canvas.value.width = displayWidth * scale;
+    canvas.value.height = displayHeight * scale;
     gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
 
     const uResolutionLocation = gl.getUniformLocation(program, "u_resolution");
-    gl.uniform2f(uResolutionLocation, displayWidth, displayHeight);
+    gl.uniform2f(uResolutionLocation, displayWidth * scale, displayHeight * scale);
   }
 };
 
