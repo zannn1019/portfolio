@@ -1,4 +1,4 @@
-# http://webzan.my.id/robots.txt
+# https://zanio.xyz/robots.txt
 User-agent: *
 Allow: /
 
@@ -6,4 +6,4 @@ Allow: /
 # Disallow: /admin/
 
 # Sitemap
-Sitemap: http://webzan.my.id/sitemap.xml
+Sitemap: https://zanio.xyz/sitemap.xml
