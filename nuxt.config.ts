@@ -5,8 +5,8 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', '@nuxt/image', '@nuxtjs/sitemap', '@nuxtjs/robots'],
   
   site: {
-    url: 'https://webzan.my.id',
-    name: 'WebZan Portfolio'
+    url: 'https://zanio.xyz',
+    name: 'Zanio Portfolio'
   },
   
   // Sitemap configuration
@@ -46,7 +46,7 @@ export default defineNuxtConfig({
     web3formsAccessKey: '', // Set via WEB3FORMS_ACCESS_KEY env variable
     // Public keys (exposed to client)
     public: {
-      siteUrl: 'https://webzan.my.id'
+      siteUrl: 'https://zanio.xyz'
     }
   },
 
@@ -62,7 +62,10 @@ export default defineNuxtConfig({
         lang: 'en'
       },
       charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1'
+      viewport: 'width=device-width, initial-scale=1',
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
+      ]
     }
   },
 

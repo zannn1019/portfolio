@@ -1,10 +1,10 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background -->
-  <rect width="32" height="32" rx="6" fill="#000000"/>
-  
-  <!-- A -->
-  <path d="M8 24L12 10H14L18 24H16L15.2 21H10.8L10 24H8ZM11.4 19H14.6L13 13L11.4 19Z" fill="#FFFFFF"/>
-  
-  <!-- F -->
-  <path d="M20 24V10H26V12H22V16H25V18H22V24H20Z" fill="#FFFFFF"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .cls-1 { fill: #050505; }
+      .cls-2 { fill: #00f0ff; font-family: monospace; font-weight: bold; font-size: 300px; }
+    </style>
+  </defs>
+  <rect class="cls-1" width="512" height="512" rx="100" ry="100"/>
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" class="cls-2">AF</text>
 </svg>
