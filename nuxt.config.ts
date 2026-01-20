@@ -1,14 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
+  compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/image', '@nuxtjs/sitemap', '@nuxtjs/robots'],
-  
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@nuxt/image",
+    "@nuxtjs/sitemap",
+    "@nuxtjs/robots",
+  ],
+
   site: {
-    url: 'https://webzan.my.id',
-    name: 'WebZan Portfolio'
+    url: "https://zanio.xyz",
+    name: "Zanio Portfolio",
   },
-  
+
   // Sitemap configuration
   sitemap: {
     // Default behavior is usually fine for static sites.
@@ -19,23 +24,23 @@ export default defineNuxtConfig({
     // Force standard robots.txt output
     groups: [
       {
-        userAgent: ['*'],
-        allow: '/',
-        disallow: ['/api/']
-      }
+        userAgent: ["*"],
+        allow: "/",
+        disallow: ["/api/"],
+      },
     ],
     // Disable any experimental or non-standard headers if they exist in defaults
-    header: false 
+    header: false,
   },
 
   image: {
-    domains: ['images.unsplash.com']
+    domains: ["images.unsplash.com"],
   },
-  css: ['~/assets/css/main.css'],
+  css: ["~/assets/css/main.css"],
 
   components: [
     {
-      path: '~/components',
+      path: "~/components",
       pathPrefix: false,
     },
   ],
@@ -43,11 +48,11 @@ export default defineNuxtConfig({
   // Runtime configuration
   runtimeConfig: {
     // Private keys (server-side only)
-    web3formsAccessKey: '', // Set via WEB3FORMS_ACCESS_KEY env variable
+    web3formsAccessKey: "", // Set via WEB3FORMS_ACCESS_KEY env variable
     // Public keys (exposed to client)
     public: {
-      siteUrl: 'https://webzan.my.id'
-    }
+      siteUrl: "https://zanio.xyz",
+    },
   },
 
   // Enable SSG (Static Site Generation)
@@ -56,34 +61,34 @@ export default defineNuxtConfig({
   // Deployment configuration
   app: {
     // Use root path for Vercel/Netlify, '/portfolio/' for GitHub Pages
-    baseURL: '/',
+    baseURL: "/",
     head: {
       htmlAttrs: {
-        lang: 'en'
+        lang: "en",
       },
-      charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1'
-    }
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+    },
   },
 
-  srcDir: 'app',
+  srcDir: "app",
 
   // Target static for deployment
   nitro: {
-    preset: 'static',
+    preset: "static",
     prerender: {
       crawlLinks: true,
-      routes: ['/']
-    }
+      routes: ["/"],
+    },
   },
 
   // SEO & Performance
   experimental: {
-    payloadExtraction: false
+    payloadExtraction: false,
   },
 
   // Enable compression
   routeRules: {
-    '/': { prerender: true }
-  }
-})
+    "/": { prerender: true },
+  },
+});
