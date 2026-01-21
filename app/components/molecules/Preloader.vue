@@ -1,108 +1,118 @@
 <template>
   <div
     v-if="!isComplete"
-    class="fixed inset-0 z-[20000] flex h-screen w-screen flex-col items-center justify-between bg-black px-6 py-10"
+    class="fixed inset-0 z-[20000] flex h-screen w-screen flex-col items-center justify-center bg-void px-6 py-10 font-mono text-xs uppercase text-accent"
     ref="container"
   >
-    <!-- Top Bar -->
-    <div
-      class="flex w-full justify-between font-mono text-xs uppercase text-text-secondary"
-    >
-      <span>ZAN — Portfolio '25</span>
-      <span class="animate-pulse">Loading Assets</span>
-    </div>
-
-    <!-- Center Counter -->
-    <div class="relative overflow-hidden">
-      <h1
-        class="font-display text-[15vw] leading-none tracking-tighter text-white mix-blend-difference"
-        ref="counterRef"
+    <!-- Boot Sequence Text -->
+    <div class="w-full max-w-md space-y-1">
+      <div
+        v-for="(line, i) in activeLines"
+        :key="i"
+        class="flex justify-between border-b border-accent/20 pb-1"
       >
-        0
-      </h1>
+        <span>> {{ line.text }}</span>
+        <span>{{ line.status }}</span>
+      </div>
     </div>
 
-    <!-- Bottom Bar -->
+    <!-- ProgressBar -->
     <div
-      class="flex w-full justify-between font-mono text-xs uppercase text-text-secondary"
+      class="mt-8 w-full max-w-md h-[2px] bg-accent/20 relative overflow-hidden"
     >
-      <span>Based in Indonesia</span>
-      <span>Creative Developer</span>
+      <div
+        class="absolute inset-y-0 left-0 bg-accent h-full w-full origin-left scale-x-0"
+        ref="progressRef"
+      ></div>
     </div>
 
-    <!-- Curtain (for exit) -->
-    <div
-      class="absolute left-0 top-0 h-full w-full bg-surface origin-bottom scale-y-0"
-      ref="curtain"
-    ></div>
+    <!-- Percentage -->
+    <div class="mt-2 w-full max-w-md text-right">
+      <span ref="percentageRef">0</span>%
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, reactive } from "vue";
 import gsap from "gsap";
 
 const emit = defineEmits(["complete"]);
 const isComplete = ref(false);
-const container = ref(null);
-const counterRef = ref(null);
-const curtain = ref(null);
+const container = ref<HTMLElement | null>(null);
+const progressRef = ref<HTMLElement | null>(null);
+const percentageRef = ref<HTMLElement | null>(null);
+
+const activeLines = reactive<{ text: string; status: string }[]>([]);
+const bootLines = [
+  { text: "INITIALIZING KERNEL", status: "OK" },
+  { text: "LOADING TEXTURES", status: "PENDING..." },
+  { text: "CONNECTING TO GRID", status: "WAITING" },
+  { text: "CALIBRATING VIEWPORT", status: "OK" },
+  { text: "ESTABLISHING UPLINK", status: "OK" },
+];
 
 onMounted(() => {
-  // Lock scroll
   document.body.style.overflow = "hidden";
 
   const tl = gsap.timeline({
     onComplete: () => {
-      isComplete.value = true;
-      document.body.style.overflow = "";
-      emit("complete");
+      // Exit Animation
+      if (!container.value) return;
+      gsap.to(container.value, {
+        yPercent: -100,
+        duration: 0.8,
+        ease: "power4.inOut",
+        onComplete: () => {
+          isComplete.value = true;
+          document.body.style.overflow = "";
+          emit("complete");
+        },
+      });
     },
   });
 
-  // 1. Counter Animation
+  // 1. Add lines sequentially
+  bootLines.forEach((line, index) => {
+    tl.add(() => {
+      activeLines.push(line);
+      // Randomly update status of previous lines to OK
+      if (index > 0 && activeLines[index - 1])
+        activeLines[index - 1].status = "OK";
+    }, index * 0.3);
+  });
+
+  // 2. Progress Bar
+  if (progressRef.value) {
+    tl.to(
+      progressRef.value,
+      {
+        scaleX: 1,
+        duration: 2,
+        ease: "power2.inOut",
+      },
+      0,
+    );
+  }
+
+  // 3. Percentage Counter
   const counter = { val: 0 };
-  tl.to(counter, {
-    val: 100,
-    duration: 1.0,
-    ease: "power2.inOut",
-    onUpdate: () => {
-      if (counterRef.value) {
-        counterRef.value.innerText = Math.floor(counter.val);
-      }
-    },
-  });
-
-  // 2. Exit Animation
-  // Slide text out
   tl.to(
-    counterRef.value,
+    counter,
     {
-      y: -100,
-      opacity: 0,
-      duration: 0.5,
-      ease: "power3.in",
+      val: 100,
+      duration: 2,
+      ease: "power2.inOut",
+      onUpdate: () => {
+        if (percentageRef.value) {
+          percentageRef.value.innerText = Math.floor(counter.val).toString();
+        }
+      },
     },
-    "-=0.2"
+    0,
   );
 
-  // Slide surrounding UI out
-  tl.to(
-    ".text-text-secondary",
-    {
-      y: 20,
-      opacity: 0,
-      duration: 0.3,
-      stagger: 0.05,
-    },
-    "-=0.4"
-  );
-
-  // Curtain wipe
-  tl.to(container.value, {
-    yPercent: -100,
-    duration: 0.8,
-    ease: "power4.inOut",
-  });
+  // Final wait
+  tl.to({}, { duration: 0.5 });
 });
 </script>

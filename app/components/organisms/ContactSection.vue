@@ -1,55 +1,76 @@
 <template>
-  <section id="contact" class="pb-32 pt-20 relative w-full bg-void">
-    <div class="container mx-auto px-6 text-center">
-      <TextReveal
-        tag="p"
-        class="font-mono text-xs uppercase tracking-widest text-text-secondary mb-6"
+  <section
+    id="contact"
+    class="pb-32 pt-32 relative w-full bg-void overflow-hidden"
+  >
+    <!-- Decorative Footer Grid -->
+    <div
+      class="absolute bottom-0 left-0 w-full h-[50vh] bg-grid opacity-10 pointer-events-none fade-t"
+    ></div>
+
+    <div class="container mx-auto px-6 relative z-10 text-center">
+      <div
+        class="inline-flex items-center gap-2 mb-10 border border-accent/20 px-4 py-2 rounded-full"
       >
-        What's Next?
-      </TextReveal>
+        <div class="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
+        <span class="font-mono text-xs text-accent uppercase tracking-widest"
+          >Signal Detected</span
+        >
+      </div>
 
       <h2
-        class="font-display text-6xl md:text-9xl uppercase tracking-tighter text-white mb-10 transition-colors cursor-pointer select-none relative h-[1.2em] overflow-hidden group"
+        class="font-display text-[12vw] leading-[0.8] uppercase tracking-tighter text-white mb-10 mix-blend-exclusion select-none hover:text-accent transition-colors duration-500 cursor-pointer"
         @click="copyEmail"
-        @mouseenter="onEnter"
-        @mouseleave="onLeave"
       >
-        <div class="relative w-full h-full">
-          <span
-            ref="textEl"
-            class="block transition-transform duration-500 group-hover:-translate-y-full group-hover:opacity-0"
-          >
-            {{ copied ? "Email Copied!" : "Let's Talk" }}
-          </span>
-          <span
-            class="absolute top-full left-0 w-full block transition-transform duration-500 group-hover:-translate-y-full h-full text-accent"
-          >
-            {{ copied ? "Email Copied!" : "Copy Email" }}
-          </span>
-        </div>
+        <span class="block">LET'S</span>
+        <span class="block">CONNECT</span>
       </h2>
 
-      <div class="flex justify-center">
-        <MagneticButton>
-          <a href="mailto:fauzanguci1019@gmail.com">Start a Project</a>
-        </MagneticButton>
+      <div class="flex flex-col items-center gap-8">
+        <p class="font-mono text-sm text-text-secondary max-w-md">
+          // transmission_status: ready <br />
+          We are ready to initiate the next phase of your digital evolution.
+        </p>
+
+        <CyberButton @click="sendMail"> INITIATE_UPLINK </CyberButton>
+
+        <div class="mt-20 flex gap-8">
+          <a
+            v-for="social in identity.contact.social"
+            :key="social.name"
+            :href="social.url"
+            target="_blank"
+            class="font-mono text-xs text-text-secondary hover:text-accent transition-colors uppercase"
+          >
+            {{ social.name }}
+          </a>
+        </div>
       </div>
     </div>
+
+    <!-- Toast Notification -->
+    <transition name="fade">
+      <div
+        v-if="copied"
+        class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-accent text-black font-bold px-6 py-2 rounded-sm z-50 font-mono text-xs uppercase"
+      >
+        Coordinates Copied to Clipboard
+      </div>
+    </transition>
   </section>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
+import identity from "~/data/identity.json";
+import CyberButton from "~/components/atoms/CyberButton.vue";
 
 const copied = ref(false);
-const textEl = ref(null);
 
 const copyEmail = async () => {
   try {
-    await navigator.clipboard.writeText("hello@zan.com");
+    await navigator.clipboard.writeText(identity.contact.email);
     copied.value = true;
-
-    // Reset after 3 seconds
     setTimeout(() => {
       copied.value = false;
     }, 3000);
@@ -58,12 +79,22 @@ const copyEmail = async () => {
   }
 };
 
-// Optional: Add hover magnetic effect specifically for this huge text if desired
-const onEnter = (e: MouseEvent) => {
-  // Implementation for text hover distortion could go here
-};
-
-const onLeave = (e: MouseEvent) => {
-  // Reset effect
+const sendMail = () => {
+  window.location.href = `mailto:${identity.contact.email}`;
 };
 </script>
+
+<style scoped>
+.fade-t {
+  mask-image: linear-gradient(to top, black, transparent);
+  -webkit-mask-image: linear-gradient(to top, black, transparent);
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

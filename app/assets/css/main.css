@@ -1,27 +1,30 @@
-@import "@fontsource/outfit/400.css";
+@import "@fontsource/outfit/300.css";
+@import "@fontsource/outfit/500.css";
 @import "@fontsource/outfit/700.css";
-@import "@fontsource/inter/400.css";
-@import "@fontsource/inter/600.css";
 @import "@fontsource/syne/700.css";
+@import "@fontsource/syne/800.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/500.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Cyber-System Palette */
-  --color-void: #050505;
-  --color-surface: #0a0a0a;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #888888;
-  --color-accent: #00f0ff; /* Mint/Cyber Lime */
-  --color-border: #333333;
+  /* Industrial Palette */
+  --color-void: #080808;
+  --color-surface: #121212;
+  --color-accent: #2563eb; /* Electric Blue */
+  --color-highlight: #ffffff;
+  --color-text-primary: #e5e5e5;
+  --color-text-secondary: #a0a0a0;
+  --color-muted: #404040;
+  --color-grid: #202020;
 
   /* Fonts */
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-art: 'Syne', sans-serif;
+  --font-display: "Syne", sans-serif;
+  --font-body: "Outfit", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
 body {
@@ -33,8 +36,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-*{
-  cursor: hidden !important;
+* {
+  cursor: none !important; /* using custom cursor */
 }
 
 h1,
@@ -44,56 +47,32 @@ h4,
 h5,
 h6 {
   font-family: var(--font-display);
-  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.02em;
 }
 
-/* Custom Selection */
-::selection {
-  background-color: var(--color-accent);
-  color: var(--color-void);
+/* Grid Background Utility */
+.bg-grid {
+  background-size: 50px 50px;
+  background-image:
+    linear-gradient(to right, var(--color-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-grid) 1px, transparent 1px);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--color-void);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-}
-
-/* Lenis Recommended Styles */
+/* Lenis Recommended */
 html.lenis,
 html.lenis body {
   height: auto;
 }
-
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
-
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
-
 .lenis.lenis-stopped {
   overflow: hidden;
 }
-
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
-}
-
-/* Hide Header when Overlay is Active */
-body.overlay-active header {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
 }
