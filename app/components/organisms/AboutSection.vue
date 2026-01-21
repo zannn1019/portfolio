@@ -82,7 +82,7 @@
             <span
               v-for="hl in identity.about.highlights"
               :key="hl"
-              class="font-display text-4xl uppercase text-transparent stroke-text opacity-50"
+              class="font-display text-4xl uppercase"
             >
               {{ hl }} <span class="text-accent mx-4">•</span>
             </span>
