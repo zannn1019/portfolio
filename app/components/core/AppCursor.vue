@@ -1,162 +1,166 @@
 <template>
-  <canvas ref="canvasEl" class="snake-cursor-canvas" />
+  <!-- Exact-position dot -->
+  <div ref="dotEl" class="c-dot" />
+  <!-- Lagging label -->
+  <div ref="labelEl" class="c-label">
+    <span class="c-text">{{ displayText }}</span>
+  </div>
 </template>
 
 <script setup lang="ts">
-const canvasEl = ref<HTMLCanvasElement | null>(null)
+// ─── State ────────────────────────────────────────────────────────
+const dotEl   = ref<HTMLDivElement | null>(null)
+const labelEl = ref<HTMLDivElement | null>(null)
 
-// ---- Physics constants ----
-const SEGMENTS   = 22     // number of chain links
-const LINK_DIST  = 11     // max px between each link
-const GRAVITY    = 0.18   // downward pull on tail
-const DAMPING    = 0.82   // velocity decay (1 = no decay, 0 = instant stop)
-const HEAD_R     = 7      // head radius px
-const TAIL_R     = 1.2    // tail tip radius px
+const displayText = ref('') // reactive — Vue renders this
+let clicking   = false
+let hoverLabel = ''
+
+// ─── Context labels per element type ─────────────────────────────
+const LABEL_MAP: [string, string][] = [
+  ['a[href^="mailto"]',       'TRANSMIT'],
+  ['a[href*="/work/"]',       'VIEW PROJECT'],
+  ['.project-card',           'VIEW PROJECT'],
+  ['a[href="https://github"]','GITHUB →'],
+  ['a[href*="linkedin"]',     'LINKEDIN →'],
+  ['button[type="submit"]',   'SEND'],
+  ['.btn',                    'ENTER'],
+  ['a',                       'OPEN →'],
+  ['button',                  'SELECT'],
+]
+
+function getLabel(el: HTMLElement): string {
+  for (const [selector, label] of LABEL_MAP) {
+    if (el.closest(selector)) return label
+  }
+  return ''
+}
+
+function padCoord(n: number): string {
+  return String(Math.round(Math.abs(n))).padStart(4, '0')
+}
 
 onMounted(async () => {
   await nextTick()
-  if (!canvasEl.value) return
-  const canvas = canvasEl.value
-  const ctx    = canvas.getContext('2d')!
+  const dot   = dotEl.value
+  const label = labelEl.value
+  if (!dot || !label) return
 
-  // ---- Resize ----
-  const resize = () => {
-    canvas.width  = window.innerWidth
-    canvas.height = window.innerHeight
-  }
-  resize()
-  window.addEventListener('resize', resize, { passive: true })
+  // Lerp target positions
+  let mx = -200, my = -200      // raw mouse (dot follows exactly)
+  let lx = -200, ly = -200      // lerp position (label follows with lag)
+  let cx = -200, cy = -200      // display coords (separate lerp, slower)
+  let visible = false
 
-  // ---- State ----
-  let mx = window.innerWidth  / 2
-  let my = window.innerHeight / 2
-  let isHovering  = false
-  let isClicking  = false
-
-  // Verlet segments: current pos + previous pos
-  interface Seg { x: number; y: number; ox: number; oy: number }
-  const segs: Seg[] = Array.from({ length: SEGMENTS }, () => ({
-    x: mx, y: my, ox: mx, oy: my,
-  }))
-
-  // ---- Event listeners ----
+  // ─── Events ──────────────────────────────────────────────────
   window.addEventListener('mousemove', (e) => {
-    mx = e.clientX
-    my = e.clientY
+    mx = e.clientX; my = e.clientY
+    if (!visible) {
+      visible = true
+      dot.style.opacity   = '1'
+      label.style.opacity = '1'
+    }
   }, { passive: true })
 
-  window.addEventListener('mousedown', () => { isClicking = true  })
-  window.addEventListener('mouseup',   () => { isClicking = false })
-
-  document.addEventListener('mouseover', (e) => {
-    const el = (e.target as HTMLElement).closest('a, button, [role="button"], .magnetic')
-    isHovering = !!el
+  window.addEventListener('mousedown', () => {
+    clicking = true
+    dot.style.transform = `translate(${mx}px, ${my}px) scale(0.5)`
+  })
+  window.addEventListener('mouseup', () => {
+    clicking = false
+    dot.style.transform = `translate(${mx}px, ${my}px) scale(1)`
   })
 
-  // ---- RAF loop ----
+  document.addEventListener('mouseover', (e) => {
+    hoverLabel = getLabel(e.target as HTMLElement)
+  })
+
+  // ─── RAF loop ────────────────────────────────────────────────
   let rafId: number
+  let lastFlicker = 0
 
-  function tick() {
-    // --- Update head: snap to mouse ---
-    segs[0].ox = segs[0].x
-    segs[0].oy = segs[0].y
-    segs[0].x  = mx
-    segs[0].y  = my
+  function tick(now: number) {
+    // Label lerp — lags behind ~12% per frame
+    lx += (mx - lx) * 0.12
+    ly += (my - ly) * 0.12
 
-    // --- Update tail segments: verlet + constraint ---
-    for (let i = 1; i < SEGMENTS; i++) {
-      const s    = segs[i]
-      const prev = segs[i - 1]
-      const t    = i / (SEGMENTS - 1)  // 0→head  1→tail
+    // Coord lerp — even slower, drifts to real position
+    cx += (mx - cx) * 0.06
+    cy += (my - cy) * 0.06
 
-      // Verlet velocity
-      const vx = (s.x - s.ox) * DAMPING
-      const vy = (s.y - s.oy) * DAMPING
+    // Dot: exact cursor
+    dot.style.transform = `translate(${mx}px, ${my}px) scale(${clicking ? 0.5 : 1})`
 
-      s.ox = s.x
-      s.oy = s.y
-      s.x += vx
-      s.y += vy + GRAVITY * t   // gravity increases toward tail
+    // Label: lagged, offset slightly to bottom-right
+    label.style.transform = `translate(${lx + 16}px, ${ly + 8}px)`
 
-      // Distance constraint — pull segment toward previous
-      const dx   = s.x - prev.x
-      const dy   = s.y - prev.y
-      const dist = Math.sqrt(dx * dx + dy * dy)
-
-      if (dist > LINK_DIST) {
-        const ratio = (dist - LINK_DIST) / dist
-        s.x -= dx * ratio
-        s.y -= dy * ratio
+    // Build display text (via Vue ref — RAF → reactive update)
+    if (clicking) {
+      displayText.value = '[ ▓▓▓▓▓▓ ]'
+    } else if (hoverLabel) {
+      displayText.value = `[ ${hoverLabel} ]`
+    } else {
+      // Glitch flicker: occasionally corrupt one digit for 1 frame
+      const flicker = now - lastFlicker > 2200 && Math.random() < 0.04
+      if (flicker) {
+        lastFlicker = now
+        const glitchChar = String.fromCharCode(48 + Math.floor(Math.random() * 10))
+        const px = padCoord(cx).split('')
+        px[Math.floor(Math.random() * 4)] = glitchChar
+        displayText.value = `X ${px.join('')}  Y ${padCoord(cy)}`
+      } else {
+        displayText.value = `X ${padCoord(cx)}  Y ${padCoord(cy)}`
       }
-    }
-
-    // --- Draw ---
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-    // Connecting spine line (very subtle)
-    ctx.beginPath()
-    ctx.moveTo(segs[0].x, segs[0].y)
-    for (let i = 1; i < SEGMENTS; i++) {
-      // Smooth curve through segments using quadratic bezier midpoints
-      const mx2 = (segs[i].x + segs[i - 1].x) / 2
-      const my2 = (segs[i].y + segs[i - 1].y) / 2
-      ctx.quadraticCurveTo(segs[i - 1].x, segs[i - 1].y, mx2, my2)
-    }
-    ctx.strokeStyle = 'rgba(255,255,255,0.10)'
-    ctx.lineWidth   = 1.5
-    ctx.stroke()
-
-    // Segment dots
-    for (let i = 0; i < SEGMENTS; i++) {
-      const t      = i / (SEGMENTS - 1)
-      const radius = HEAD_R - (HEAD_R - TAIL_R) * t
-      const alpha  = 1 - t * 0.65
-
-      // Head reacts to state
-      let r = radius
-      if (i === 0) {
-        if (isClicking)  r = radius * 0.55
-        else if (isHovering) r = radius * 2.2
-      }
-
-      // Glow halo on head only
-      if (i === 0) {
-        const grd = ctx.createRadialGradient(segs[i].x, segs[i].y, 0, segs[i].x, segs[i].y, r * 3.5)
-        grd.addColorStop(0,   `rgba(255,255,255,${isHovering ? 0.18 : 0.08})`)
-        grd.addColorStop(1,   'rgba(255,255,255,0)')
-        ctx.fillStyle = grd
-        ctx.beginPath()
-        ctx.arc(segs[i].x, segs[i].y, r * 3.5, 0, Math.PI * 2)
-        ctx.fill()
-      }
-
-      // Segment body
-      ctx.fillStyle = `rgba(255,255,255,${alpha})`
-      ctx.beginPath()
-      ctx.arc(segs[i].x, segs[i].y, r, 0, Math.PI * 2)
-      ctx.fill()
     }
 
     rafId = requestAnimationFrame(tick)
   }
 
-  tick()
-
-  onUnmounted(() => {
-    cancelAnimationFrame(rafId)
-    window.removeEventListener('resize', resize)
-  })
+  rafId = requestAnimationFrame(tick)
+  onUnmounted(() => cancelAnimationFrame(rafId))
 })
 </script>
 
 <style scoped>
-.snake-cursor-canvas {
+/* ── Exact dot ───────────────────────────────────────────────── */
+.c-dot {
   position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0;
+  width: 5px; height: 5px;
+  background: #fff;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10001;
+  mix-blend-mode: difference;
+  opacity: 0;
+  transform: translate(-100px, -100px);
+  will-change: transform;
+  transition: transform 0s, opacity 0.3s;
+}
+
+/* ── Lagging label ───────────────────────────────────────────── */
+.c-label {
+  position: fixed;
+  top: 0; left: 0;
   pointer-events: none;
   z-index: 10000;
   mix-blend-mode: difference;
+  opacity: 0;
+  transform: translate(-100px, -100px);
+  will-change: transform;
+}
+
+.c-text {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+  /* Subtle ghost background for readability over light sections */
+  background: transparent;
+  line-height: 1.4;
 }
 </style>
