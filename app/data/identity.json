@@ -1,0 +1,180 @@
+{
+  "personal": {
+    "firstName": "AHMAD",
+    "lastName": "FAUZAN",
+    "fullName": "Ahmad Fauzan",
+    "title": "SYSTEM-ORIENTED FULLSTACK DEVELOPER",
+    "email": "fauzanguci1019@gmail.com",
+    "description": "I build sharp Nuxt.js and Laravel systems with fast motion, clear architecture, and production-ready execution."
+  },
+  "branding": {
+    "logoText": {
+      "first": "AHMAD",
+      "last": "FAUZAN"
+    }
+  },
+  "hero": {
+    "label": "SYSTEM-ORIENTED FULLSTACK DEVELOPER",
+    "description": "Nuxt.js, Laravel, and GSAP-driven interfaces shaped into high-contrast systems that feel fast, deliberate, and alive.",
+    "ctaButtonText": "ENTER ARCHIVE",
+    "stats": {
+      "years": "2+",
+      "yearsLabel": "Years"
+    }
+  },
+  "about": {
+    "sectionNumber": "01",
+    "sectionLabel": "STATUS FILE",
+    "statement": "I design and ship high-speed web systems where structure, motion, and clarity move as one.",
+    "highlights": ["Fullstack Developer", "Nuxt.js", "Laravel"],
+    "imagePlaceholderLabels": ["TACTICAL", "KINETIC", "PRECISION"],
+    "expertise": {
+      "title": "Core Loadout",
+      "description": "Nuxt.js for structured frontends, Laravel for resilient backends, and enough DevOps discipline to keep releases stable. I work with REST APIs, databases, and deployment pipelines as one system rather than separate layers."
+    },
+    "skills": [
+      {
+        "name": "Nuxt.js & Vue.js",
+        "level": 95
+      },
+      {
+        "name": "Laravel & PHP",
+        "level": 90
+      },
+      {
+        "name": "DevOps & CI/CD",
+        "level": 75
+      }
+    ],
+    "experience": [
+      {
+        "number": "2+",
+        "label": "Years Active"
+      },
+      {
+        "number": "6+",
+        "label": "Systems Shipped"
+      },
+      {
+        "number": "2+",
+        "label": "Certifications"
+      }
+    ]
+  },
+  "contact": {
+    "sectionNumber": "03",
+    "sectionLabel": "OPEN CHANNEL",
+    "title": {
+      "lines": ["Initiate", "Direct", "Contact"]
+    },
+    "email": "fauzanguci1019@gmail.com",
+    "education": {
+      "school": "SMKN 2 Cimahi",
+      "major": "Software & Game Development",
+      "years": "2021-2024"
+    },
+    "certifications": ["Vue.js Mid-Level Developer", "BNSP Junior Coder"],
+    "social": [
+      {
+        "name": "GitHub",
+        "url": "https://github.com/zannn1019"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/ahmad-fauzan-49674a2a0"
+      }
+    ],
+    "form": {
+      "submitButtonText": "TRANSMIT",
+      "projectTypes": [
+        {
+          "value": "",
+          "label": "Select mission type"
+        },
+        {
+          "value": "web",
+          "label": "Web System"
+        },
+        {
+          "value": "design",
+          "label": "Interface Design"
+        },
+        {
+          "value": "animation",
+          "label": "Motion Systems"
+        },
+        {
+          "value": "other",
+          "label": "Other"
+        }
+      ]
+    }
+  },
+  "navigation": {
+    "menuItems": [
+      {
+        "name": "Command",
+        "path": "/"
+      },
+      {
+        "name": "Archive",
+        "path": "#about"
+      },
+      {
+        "name": "Status",
+        "path": "#work"
+      },
+      {
+        "name": "Uplink",
+        "path": "#contact"
+      }
+    ],
+    "menuSocial": [
+      {
+        "name": "BEHANCE",
+        "url": "https://www.behance.net/zannn1019"
+      },
+      {
+        "name": "DRIBBBLE",
+        "url": "https://dribbble.com/zannn1019"
+      },
+      {
+        "name": "GITHUB",
+        "url": "https://github.com/zannn1019"
+      }
+    ]
+  },
+  "footer": {
+    "copyrightText": "Ahmad Fauzan. System-Oriented Fullstack Developer.",
+    "socialLinks": [
+      {
+        "name": "GitHub",
+        "url": "https://github.com/zannn1019"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/ahmad-fauzan-49674a2a0"
+      }
+    ]
+  },
+  "seo": {
+    "siteUrl": "http://zanio.xyz",
+    "siteName": "ZAN.SYS",
+    "twitterHandle": "@zannn1019",
+    "keywords": [
+      "Fullstack Developer",
+      "Nuxt.js",
+      "Laravel",
+      "Vue 3",
+      "GSAP",
+      "Motion Design",
+      "DevOps",
+      "CI/CD",
+      "Ahmad Fauzan",
+      "Frontend Developer",
+      "Backend Developer"
+    ],
+    "ogImage": "/og-image.jpg",
+    "themeColor": "#000000"
+  }
+}
