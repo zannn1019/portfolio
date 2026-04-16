@@ -2,9 +2,8 @@
   <div>
     <NuxtRouteAnnouncer />
 
-    <!-- Global overlays (client-only) -->
+    <!-- Snake cursor (canvas, full screen, pointer-events: none) -->
     <CoreAppCursor />
-    <CoreCrosshairNav />
 
     <!-- Fixed status bar (logo + live time) -->
     <header class="status-bar">
@@ -28,8 +27,7 @@ let timer: ReturnType<typeof setInterval>
 
 onMounted(() => {
   const update = () => {
-    const d = new Date()
-    liveTime.value = d.toLocaleTimeString('en-US', { hour12: false })
+    liveTime.value = new Date().toLocaleTimeString('en-US', { hour12: false })
   }
   update()
   timer = setInterval(update, 1000)

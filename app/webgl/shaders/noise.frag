@@ -85,7 +85,7 @@ void main() {
 
   // Blue tint: dark → near-black navy, bright → electric blue
   vec3 dark  = vec3(0.02, 0.03, 0.08);
-  vec3 light = vec3(0.0, 0.322, 0.063);
+  vec3 light = vec3(0.490, 0.490, 0.490);
   vec3 color = mix(dark, light, bw);
 
   gl_FragColor = vec4(color, alpha);
