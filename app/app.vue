@@ -7,7 +7,7 @@
 
     <!-- Fixed status bar (logo + live time) -->
     <header class="status-bar">
-      <NuxtLink to="/" class="status-bar__logo">ZAN.SYS</NuxtLink>
+      <NuxtLink to="/" class="status-bar__logo">ZAN</NuxtLink>
       <div class="status-bar__right">
         <span class="status-bar__status font-mono">● ONLINE</span>
         <ClientOnly>

@@ -18,7 +18,7 @@ export default defineNuxtConfig({
             'System-Oriented Fullstack Developer. Nuxt.js, Laravel, and GSAP-driven interfaces shaped into high-contrast systems that feel fast, deliberate, and alive.',
         },
         { name: 'theme-color', content: '#000000' },
-        { property: 'og:title', content: 'ZAN.SYS — Ahmad Fauzan' },
+        { property: 'og:title', content: 'ZAN — Ahmad Fauzan' },
         {
           property: 'og:description',
           content: 'System-Oriented Fullstack Developer. Nuxt.js, Laravel, GSAP-driven interfaces.',
