@@ -1,12 +1,5 @@
 <template>
   <article class="project-detail" v-if="project">
-    <!-- Back navigation -->
-    <div style="position: fixed; top: 0; left: 0; z-index: 500; padding: 1.5rem clamp(1.5rem, 5vw, 5rem); pointer-events: none;">
-      <NuxtLink to="/" class="footer__link magnetic" style="pointer-events: all; display: inline-flex; align-items: center; gap: 0.5rem;">
-        ← BACK
-      </NuxtLink>
-    </div>
-
     <!-- Hero image header -->
     <div class="project-detail__hero">
       <img :src="project.image" :alt="project.title" class="project-detail__bg" />
@@ -21,6 +14,12 @@
           {{ project.title }}
         </h1>
       </div>
+    </div>
+    
+    <div style=" z-index: 500; padding: 1.5rem clamp(1.5rem, 5vw, 5rem); pointer-events: none;">
+      <NuxtLink to="/" class="footer__link magnetic" style="pointer-events: all; display: inline-flex; align-items: center; gap: 0.5rem;">
+        ← BACK
+      </NuxtLink>
     </div>
 
     <!-- Content -->

@@ -889,7 +889,7 @@ a, button, [role="button"] { cursor: none; }
 }
 
 .project-detail__content {
-  padding: var(--section-pad) clamp(1.5rem, 5vw, 5rem);
+  padding: 3rem clamp(1.5rem, 5vw, 5rem);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(3rem, 6vw, 8rem);

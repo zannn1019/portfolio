@@ -15,6 +15,7 @@
         v-for="(project, i) in projects"
         :key="project.slug"
         class="project-card"
+        @click="navigateTo(`/work/${project.slug}`)"
       >
         <!-- Image Side -->
         <div class="project-card__image-wrap">
