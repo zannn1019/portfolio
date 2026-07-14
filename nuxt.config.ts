@@ -3,9 +3,22 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   future: { compatibilityVersion: 4 },
-  modules: ['@vercel/analytics', '@vercel/speed-insights'],
-
+  modules: ['@vercel/analytics', '@vercel/speed-insights', 'nuxt-umami'],
+  umami: {
+    id: '36ac36a7-9291-47bb-96e5-a295b25fc634',
+    host: 'https://umami.zanio.xyz/',
+    autoTrack: true,
+    // proxy: 'cloak',
+    // useDirective: true,
+    // ignoreLocalhost: true,
+    // excludeQueryParams: false,
+    // domains: ['cool-site.app', 'my-space.site'],
+    // customEndpoint: '/my-custom-endpoint',
+    // enabled: false,
+    // logErrors: true,
+  },
   css: ['~/assets/css/main.css'],
+
 
   app: {
     head: {
